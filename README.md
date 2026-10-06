@@ -1,4 +1,5 @@
-#ESPNOW Communication Module for 2 ESP32 Microcontrollers (1 DEV MODULE, 1 WROVER MODULE with CAM) powered by the same breadboard. 
+#ESPNOW Communication Module
+#2 ESP32 Microcontrollers (1 DEV MODULE, 1 WROVER MODULE with CAM) powered by the same breadboard using VIN pin. 
 
 Board A Sender MAC: A0:B7:65:21:EE:9C
 Board B Receiver MAC: E0:8C:FE:F5:7E:64
