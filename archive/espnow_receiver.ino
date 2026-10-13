@@ -1,3 +1,5 @@
+//v1 heartbeat/fault proof for fault latch, no PID/trajectory code yet
+
 // Board B - receiver / safety controller 
 // accepts valid hearbeats until a valid fault arrives 
 // if valid fault, latches e-stop and ignores later normal messages
