@@ -1,3 +1,5 @@
+// incomplete four-joint draft
+
 // Board A = sender
 // sends normal heartbeat packets then intentionally sends a fault 
 #include <WiFi.h>
