@@ -1,3 +1,4 @@
+// intermediate receive with callback and placeholder for PID target 
 // Board B - receiver / safety controller 
 // accepts valid hearbeats until a valid fault arrives 
 // if valid fault, latches e-stop and ignores later normal messages
