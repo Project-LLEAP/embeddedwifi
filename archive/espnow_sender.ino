@@ -1,3 +1,6 @@
+// v1 heartbeat/fault proof to prove fault-latch
+// no PID/trajectory code yet
+
 // Board A = sender
 // sends normal heartbeat packets then intentionally sends a fault 
 #include <WiFi.h>
