@@ -9,14 +9,17 @@ System Architecture:
 - Joint ESP32: Receives command data, runs local encoder feedback and PID position control, and commands its associated ESCON and motor.
 - ESP-NOW: Low-latency wireless comms without requiring a Wi-Fi access point. 
 
-Code Files: 
-- PID_ESPNOW_Integration.ino: Joint-controller firmward to run encoder, PID loop, ESCON outputs, serial interface, and comms integration. 
-- JointComms.h: Defines the shared ESP-NOW protocol, trajectory-data, fault type, and JointComms class.
-- JointComms.cpp: ESP-NOW Init, peer setup, packet validation, data handoff, and E-STOP latch. 
+Old Code Files: 
+- PID_ESPNOW_Integration.ino: Joint-controller firmward to run encoder, PID loop, ESCON outputs, serial interface, and comms integration.
 - BrainSender_V2_Test.ino: Bench-test firmward for main-controller role. Send V2 trajectory data packets to one "joint" ESP32. 
 
+Shared Comms library: 
+- JointComms.h: Defines the shared ESP-NOW protocol, trajectory-data, fault type, and JointComms class.
+- JointComms.cpp: ESP-NOW Init, peer setup, packet validation, data handoff, and E-STOP latch.
+- LLEAP_Joint_Controller.ino: Board B PID/Encoder/ESCON code
+- LLEAP_TestBench_Sender.ino: Board A Test-Brain Code
 
-Data Packets: Contains protocol identifier, version #, packet type, sequence number, and trajectory-command values such as initial/final position/velocity and duration. Each receiver rejects packets with unmatched length, protocol identifier, or version. 
+Data Packets: Contains protocol identifier, version #, packet type, sequence number, and trajectory-command values such as initial/final position/velocity and duration. Each receiver rejects packets with unmatched length, protocol identifier, or version. Heartbeat packets and motion commands are different packet types. Included are a source-MAC validation, 250ms radio, reset fault latching, safe enable conditions. 
 
 Safety: 
 Valid FAULT packets causes the receiving joint controller to 
@@ -29,8 +32,8 @@ Valid FAULT packets causes the receiving joint controller to
 Note: PID calcs, serial output, and normal command handling are outside callback.
 
 Bech-Test Procedure: 
-1. Check that Brain Sender and Joint Controller ESP32 boards have the correct MAC addresses. 
-2. Power boards independently on the same ESP-NOW Wi-Fi channel. 
+1. Check that Brain Sender and Joint Controller ESP32 boards have the correct MAC addresses. ALso check ESCON polarity, direction polarity, DAC scaling/limit, joint limits. 
+2. Power boards independently on the same ESP-NOW Wi-Fi channel and flash to both boards. 
 3. Confirm Joint Controller prints correct trajectory-data packets.
 4. Send fault packet and verify joint controller latches E-STOP. 
 5. Before connecting motor, verify ESCON disable and zero-command signals with motor power off. 
