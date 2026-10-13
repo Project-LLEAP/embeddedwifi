@@ -32,7 +32,7 @@ Valid FAULT packets causes the receiving joint controller to
 Note: PID calcs, serial output, and normal command handling are outside callback.
 
 Bech-Test Procedure: 
-1. Check that Brain Sender and Joint Controller ESP32 boards have the correct MAC addresses. ALso check ESCON polarity, direction polarity, DAC scaling/limit, joint limits. 
+1. Check that Brain Sender and Joint Controller ESP32 boards have the correct MAC addresses. Also check ESCON polarity, direction polarity, DAC scaling/limit, joint limits. 
 2. Power boards independently on the same ESP-NOW Wi-Fi channel and flash to both boards. 
 3. Confirm Joint Controller prints correct trajectory-data packets.
 4. Send fault packet and verify joint controller latches E-STOP. 
