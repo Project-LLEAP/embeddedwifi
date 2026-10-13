@@ -5,9 +5,14 @@ Overview:
 Implement wireless ESP-NOW communication between a main ESP32 controller and distributed ESP32 joint controllers for LLEAP exoskeleton. The main controller generates the leg motion profile, converts task-space motion into joint-space commands, and sends appropriate command data to the ESP32 assigned to each hip or knee joint. Each joint ESP32 runs its own local PID controller and drives its own ESCON motor controller. The PID loop should be independent from ESP-NOW processing. Incoming packets are validated and copied by the ESP-NOW callback, while the main joint-control loop handles the resulting command data at its normal control rate. 
 
 System Architecture: 
+Brain ESP32 > ESP-NOW > Joint ESP32 > ESCON Control > Motor > Mechanical Leg Joint 
 - Main ESP32: Generate motion profiles, inverse kinematics calculations, and sends joint-command data. 
 - Joint ESP32: Receives command data, runs local encoder feedback and PID position control, and commands its associated ESCON and motor.
-- ESP-NOW: Low-latency wireless comms without requiring a Wi-Fi access point. 
+- ESP-NOW: Low-latency wireless comms without requiring a Wi-Fi access point.
+
+Note: Encoder feeds back to joint ESP32 for closed loop control. 
+
+Board A is the "brain" board. Board B is the joint-controller test board for one hip or knee actuator at a time. 
 
 Old Code Files: 
 - PID_ESPNOW_Integration.ino: Joint-controller firmward to run encoder, PID loop, ESCON outputs, serial interface, and comms integration.
